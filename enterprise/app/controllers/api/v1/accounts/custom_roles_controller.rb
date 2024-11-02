@@ -1,6 +1,7 @@
 class Api::V1::Accounts::CustomRolesController < Api::V1::Accounts::EnterpriseAccountsController
+  skip_before_action :check_subscription
+  skip_before_action :check_enterprise_subscription
   before_action :fetch_custom_role, only: [:show, :update, :destroy]
-  before_action :check_authorization
 
   def index
     @custom_roles = Current.account.custom_roles
@@ -20,6 +21,8 @@ class Api::V1::Accounts::CustomRolesController < Api::V1::Accounts::EnterpriseAc
     @custom_role.destroy!
     head :ok
   end
+
+  private
 
   def permitted_params
     params.require(:custom_role).permit(:name, :description, permissions: [])
