@@ -22,7 +22,7 @@ const primaryMenuItems = accountId => [
     key: 'captain',
     label: 'CAPTAIN',
     featureFlag: FEATURE_FLAGS.CAPTAIN,
-    toState: frontendURL(`accounts/${accountId}/captain`),
+    toState: frontendURL(`accounts/${accountId}/captain/documents`),
     toStateName: 'captain',
   },
   {
@@ -47,7 +47,7 @@ const primaryMenuItems = accountId => [
     label: 'CAMPAIGNS',
     featureFlag: FEATURE_FLAGS.CAMPAIGNS,
     toState: frontendURL(`accounts/${accountId}/campaigns`),
-    toStateName: 'ongoing_campaigns',
+    toStateName: 'campaigns_ongoing_index',
   },
   {
     icon: 'library',
