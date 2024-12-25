@@ -95,15 +95,15 @@ services:
   #     - POSTGRES_USER=postgres
   #     - POSTGRES_PASSWORD=
 
-  # redis:
-  #   image: redis:alpine
-  #   restart: always
-  #   command: ["sh", "-c", "redis-server --requirepass \"$REDIS_PASSWORD\""]
-  #   env_file: .env
-  #   volumes:
-  #     - redis:/data/redis
-  #   ports:
-  #     - '6377:6379'
+  redis:
+    image: redis:alpine
+    restart: always
+    command: ["sh", "-c", "redis-server --requirepass \"$REDIS_PASSWORD\""]
+    env_file: .env
+    volumes:
+      - redis:/data/redis
+    ports:
+      - '6377:6379'
 
   mailhog:
     image: mailhog/mailhog
