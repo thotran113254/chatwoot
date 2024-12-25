@@ -1,13 +1,5 @@
-class CustomRolePolicy < ApplicationPolicy
+module Enterprise::RolePolicy
   def index?
-    true
-  end
-
-  def update?
-    true
-  end
-
-  def show?
     true
   end
 
@@ -15,7 +7,15 @@ class CustomRolePolicy < ApplicationPolicy
     true
   end
 
+  def show?
+    true
+  end
+
+  def update?
+    true
+  end
+
   def destroy?
     true
   end
-end
+end 
