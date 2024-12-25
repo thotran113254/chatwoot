@@ -8,15 +8,13 @@ class Integrations::Facebook::MessageCreator
   end
 
   def perform
-    # begin
-    if agent_message_via_echo?
+    if postback_message?
+      create_postback_message
+    elsif agent_message_via_echo?
       create_agent_message
     else
       create_contact_message
     end
-    # rescue => e
-    # ChatwootExceptionTracker.new(e).capture_exception
-    # end
   end
 
   private
@@ -38,6 +36,24 @@ class Integrations::Facebook::MessageCreator
   def create_contact_message
     Channel::FacebookPage.where(page_id: response.recipient_id).each do |page|
       mb = Messages::Facebook::MessageBuilder.new(response, page.inbox)
+      mb.perform
+    end
+  end
+
+  def postback_message?
+    response.postback?
+  end
+
+  def create_postback_message
+    Channel::FacebookPage.where(page_id: response.recipient_id).each do |page|
+      mb = Messages::Facebook::MessageBuilder.new(
+        response, 
+        page.inbox,
+        postback_content: {
+          payload: response.postback_payload,
+          title: response.postback_title
+        }
+      )
       mb.perform
     end
   end

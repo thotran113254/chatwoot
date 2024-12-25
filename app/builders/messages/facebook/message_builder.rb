@@ -7,11 +7,12 @@
 class Messages::Facebook::MessageBuilder < Messages::Messenger::MessageBuilder
   attr_reader :response
 
-  def initialize(response, inbox, outgoing_echo: false)
+  def initialize(response, inbox, outgoing_echo: false, postback_content: nil)
     super()
     @response = response
     @inbox = inbox
     @outgoing_echo = outgoing_echo
+    @postback_content = postback_content
     @sender_id = (@outgoing_echo ? @response.recipient_id : @response.sender_id)
     @message_type = (@outgoing_echo ? :outgoing : :incoming)
     @attachments = (@response.attachments || [])
@@ -109,11 +110,11 @@ class Messages::Facebook::MessageBuilder < Messages::Messenger::MessageBuilder
       account_id: conversation.account_id,
       inbox_id: conversation.inbox_id,
       message_type: @message_type,
-      content: response.content,
+      content: postback_content? ? postback_content[:title] : response.content,
       source_id: response.identifier,
       content_attributes: {
-        in_reply_to_external_id: response.in_reply_to_external_id
-      },
+        postback_payload: postback_content[:payload] 
+      }.compact,
       sender: @outgoing_echo ? nil : @contact_inbox.contact
     }
   end
@@ -154,4 +155,12 @@ class Messages::Facebook::MessageBuilder < Messages::Messenger::MessageBuilder
   end
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/MethodLength
+
+  def postback_content?
+    @postback_content.present?
+  end
+
+  def postback_content
+    @postback_content || {}
+  end
 end

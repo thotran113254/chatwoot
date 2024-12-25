@@ -67,6 +67,18 @@ class Integrations::Facebook::MessageParser
   def in_reply_to_external_id
     @messaging.dig('message', 'reply_to', 'mid')
   end
+
+  def postback?
+    @messaging['postback'].present?
+  end
+
+  def postback_payload
+    @messaging.dig('postback', 'payload')
+  end
+
+  def postback_title
+    @messaging.dig('postback', 'title')
+  end
 end
 
 # Sample Response

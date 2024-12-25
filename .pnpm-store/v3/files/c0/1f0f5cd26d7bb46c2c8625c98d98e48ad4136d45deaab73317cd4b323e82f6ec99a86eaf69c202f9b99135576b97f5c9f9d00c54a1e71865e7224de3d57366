@@ -1,0 +1,786 @@
+var Ut = Object.defineProperty;
+var Kt = (s, a, t) => a in s ? Ut(s, a, { enumerable: !0, configurable: !0, writable: !0, value: t }) : s[a] = t;
+var B = (s, a, t) => Kt(s, typeof a != "symbol" ? a + "" : a, t);
+import { ref as p, watchEffect as N, defineComponent as vt, computed as y, onMounted as Yt, watch as Ft, onUnmounted as Gt, openBlock as l, createElementBlock as h, normalizeClass as Y, normalizeStyle as ct, unref as L, createBlock as q, resolveDynamicComponent as Z, renderSlot as P, createCommentVNode as V, mergeProps as ut, Fragment as W, createElementVNode as M, normalizeProps as Lt, createTextVNode as Nt, toDisplayString as lt, renderList as gt, useAttrs as qt, nextTick as Jt, withCtx as X, createVNode as G } from "vue";
+function Xt(s) {
+  if (!s || typeof document > "u") return;
+  let a = document.head || document.getElementsByTagName("head")[0], t = document.createElement("style");
+  t.type = "text/css", a.appendChild(t), t.styleSheet ? t.styleSheet.cssText = s : t.appendChild(document.createTextNode(s));
+}
+Xt(`:where([data-sonner-toaster][dir=ltr]),:where(html[dir=ltr]){--toast-icon-margin-start:-3px;--toast-icon-margin-end:4px;--toast-svg-margin-start:-1px;--toast-svg-margin-end:0px;--toast-button-margin-start:auto;--toast-button-margin-end:0;--toast-close-button-start:0;--toast-close-button-end:unset;--toast-close-button-transform:translate(-35%, -35%)}:where([data-sonner-toaster][dir=rtl]),:where(html[dir=rtl]){--toast-icon-margin-start:4px;--toast-icon-margin-end:-3px;--toast-svg-margin-start:0px;--toast-svg-margin-end:-1px;--toast-button-margin-start:0;--toast-button-margin-end:auto;--toast-close-button-start:unset;--toast-close-button-end:0;--toast-close-button-transform:translate(35%, -35%)}:where([data-sonner-toaster]){position:fixed;width:var(--width);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;--gray1:hsl(0, 0%, 99%);--gray2:hsl(0, 0%, 97.3%);--gray3:hsl(0, 0%, 95.1%);--gray4:hsl(0, 0%, 93%);--gray5:hsl(0, 0%, 90.9%);--gray6:hsl(0, 0%, 88.7%);--gray7:hsl(0, 0%, 85.8%);--gray8:hsl(0, 0%, 78%);--gray9:hsl(0, 0%, 56.1%);--gray10:hsl(0, 0%, 52.3%);--gray11:hsl(0, 0%, 43.5%);--gray12:hsl(0, 0%, 9%);--border-radius:8px;box-sizing:border-box;padding:0;margin:0;list-style:none;outline:0;z-index:999999999}:where([data-sonner-toaster][data-x-position=right]){right:max(var(--offset),env(safe-area-inset-right))}:where([data-sonner-toaster][data-x-position=left]){left:max(var(--offset),env(safe-area-inset-left))}:where([data-sonner-toaster][data-x-position=center]){left:50%;transform:translateX(-50%)}:where([data-sonner-toaster][data-y-position=top]){top:max(var(--offset),env(safe-area-inset-top))}:where([data-sonner-toaster][data-y-position=bottom]){bottom:max(var(--offset),env(safe-area-inset-bottom))}:where([data-sonner-toast]){--y:translateY(100%);--lift-amount:calc(var(--lift) * var(--gap));z-index:var(--z-index);position:absolute;opacity:0;transform:var(--y);filter:blur(0);touch-action:none;transition:transform .4s,opacity .4s,height .4s,box-shadow .2s;box-sizing:border-box;outline:0;overflow-wrap:anywhere}:where([data-sonner-toast][data-styled=true]){padding:16px;background:var(--normal-bg);border:1px solid var(--normal-border);color:var(--normal-text);border-radius:var(--border-radius);box-shadow:0 4px 12px rgba(0,0,0,.1);width:var(--width);font-size:13px;display:flex;align-items:center;gap:6px}:where([data-sonner-toast]:focus-visible){box-shadow:0 4px 12px rgba(0,0,0,.1),0 0 0 2px rgba(0,0,0,.2)}:where([data-sonner-toast][data-y-position=top]){top:0;--y:translateY(-100%);--lift:1;--lift-amount:calc(1 * var(--gap))}:where([data-sonner-toast][data-y-position=bottom]){bottom:0;--y:translateY(100%);--lift:-1;--lift-amount:calc(var(--lift) * var(--gap))}:where([data-sonner-toast]) :where([data-description]){font-weight:400;line-height:1.4;color:inherit}:where([data-sonner-toast]) :where([data-title]){font-weight:500;line-height:1.5;color:inherit}:where([data-sonner-toast]) :where([data-icon]){display:flex;height:16px;width:16px;position:relative;justify-content:flex-start;align-items:center;flex-shrink:0;margin-left:var(--toast-icon-margin-start);margin-right:var(--toast-icon-margin-end)}:where([data-sonner-toast][data-promise=true]) :where([data-icon])>svg{opacity:0;transform:scale(.8);transform-origin:center;animation:sonner-fade-in .3s ease forwards}:where([data-sonner-toast]) :where([data-icon])>*{flex-shrink:0}:where([data-sonner-toast]) :where([data-icon]) svg{margin-left:var(--toast-svg-margin-start);margin-right:var(--toast-svg-margin-end)}:where([data-sonner-toast]) :where([data-content]){display:flex;flex-direction:column;gap:2px}[data-sonner-toast][data-styled=true] [data-button]{border-radius:4px;padding-left:8px;padding-right:8px;height:24px;font-size:12px;color:var(--normal-bg);background:var(--normal-text);margin-left:var(--toast-button-margin-start);margin-right:var(--toast-button-margin-end);border:none;cursor:pointer;outline:0;display:flex;align-items:center;flex-shrink:0;transition:opacity .4s,box-shadow .2s}:where([data-sonner-toast]) :where([data-button]):focus-visible{box-shadow:0 0 0 2px rgba(0,0,0,.4)}:where([data-sonner-toast]) :where([data-button]):first-of-type{margin-left:var(--toast-button-margin-start);margin-right:var(--toast-button-margin-end)}:where([data-sonner-toast]) :where([data-cancel]){color:var(--normal-text);background:rgba(0,0,0,.08)}:where([data-sonner-toast][data-theme=dark]) :where([data-cancel]){background:rgba(255,255,255,.3)}[data-sonner-toast] [data-close-button]{position:absolute;left:var(--toast-close-button-start);right:var(--toast-close-button-end);top:0;height:20px;width:20px;display:flex;justify-content:center;align-items:center;padding:0;background:var(--normal-bg);color:var(--normal-text);border:1px solid var(--normal-border);transform:var(--toast-close-button-transform);border-radius:50%;cursor:pointer;z-index:1;transition:opacity .1s,background .2s,border-color .2s}[data-sonner-toast] [data-close-button]:focus-visible{box-shadow:0 4px 12px rgba(0,0,0,.1),0 0 0 2px rgba(0,0,0,.2)}:where([data-sonner-toast]) :where([data-disabled=true]){cursor:not-allowed}[data-sonner-toast]:hover [data-close-button]:hover{background:var(--gray2);border-color:var(--gray5)}[data-sonner-toaster][data-theme=dark] [data-sonner-toast]:hover [data-close-button]:hover{background:#000;border-color:#4c4c4c}:where([data-sonner-toast][data-swiping=true])::before{content:'';position:absolute;left:0;right:0;height:100%;z-index:-1}:where(
+[data-sonner-toast][data-y-position=top][data-swiping=true]
+)::before{bottom:50%;transform:scaleY(3) translateY(50%)}:where(
+[data-sonner-toast][data-y-position=bottom][data-swiping=true]
+)::before{top:50%;transform:scaleY(3) translateY(-50%)}:where([data-sonner-toast][data-swiping=false][data-removed=true])::before{content:'';position:absolute;inset:0;transform:scaleY(2)}:where([data-sonner-toast])::after{content:'';position:absolute;left:0;height:calc(var(--gap) + 1px);bottom:100%;width:100%}:where([data-sonner-toast][data-mounted=true]){--y:translateY(0);opacity:1}:where([data-sonner-toast][data-expanded=false][data-front=false]){--scale:var(--toasts-before) * 0.05 + 1;--y:translateY(calc(var(--lift-amount) * var(--toasts-before))) scale(calc(-1 * var(--scale)));height:var(--front-toast-height)}:where([data-sonner-toast])>*{transition:opacity .4s}:where(
+[data-sonner-toast][data-expanded=false][data-front=false][data-styled=true]
+)>*{opacity:0}:where([data-sonner-toast][data-visible=false]){opacity:0;pointer-events:none}:where([data-sonner-toast][data-mounted=true][data-expanded=true]){--y:translateY(calc(var(--lift) * var(--offset)));height:var(--initial-height)}:where(
+[data-sonner-toast][data-removed=true][data-front=true][data-swipe-out=false]
+){--y:translateY(calc(var(--lift) * -100%));opacity:0}:where(
+[data-sonner-toast][data-removed=true][data-front=false][data-swipe-out=false][data-expanded=true]
+){--y:translateY(calc(var(--lift) * var(--offset) + var(--lift) * -100%));opacity:0}:where(
+[data-sonner-toast][data-removed=true][data-front=false][data-swipe-out=false][data-expanded=false]
+){--y:translateY(40%);opacity:0;transition:transform .5s,opacity .2s}:where([data-sonner-toast][data-removed=true][data-front=false])::before{height:calc(var(--initial-height) + 20%)}[data-sonner-toast][data-swiping=true]{transform:var(--y) translateY(var(--swipe-amount,0));transition:none}[data-sonner-toast][data-swipe-out=true][data-y-position=bottom],[data-sonner-toast][data-swipe-out=true][data-y-position=top]{animation:swipe-out .2s ease-out forwards}@keyframes swipe-out{from{transform:translateY(calc(var(--lift) * var(--offset) + var(--swipe-amount)));opacity:1}to{transform:translateY(calc(var(--lift) * var(--offset) + var(--swipe-amount) + var(--lift) * -100%));opacity:0}}@media (max-width:600px){[data-sonner-toaster]{position:fixed;--mobile-offset:16px;right:var(--mobile-offset);left:var(--mobile-offset);width:100%}[data-sonner-toaster][dir=rtl]{left:calc(var(--mobile-offset) * -1)}[data-sonner-toaster] [data-sonner-toast]{left:0;right:0;width:calc(100% - var(--mobile-offset) * 2)}[data-sonner-toaster][data-x-position=left]{left:var(--mobile-offset)}[data-sonner-toaster][data-y-position=bottom]{bottom:20px}[data-sonner-toaster][data-y-position=top]{top:20px}[data-sonner-toaster][data-x-position=center]{left:var(--mobile-offset);right:var(--mobile-offset);transform:none}}[data-sonner-toaster][data-theme=light]{--normal-bg:#fff;--normal-border:var(--gray4);--normal-text:var(--gray12);--success-bg:hsl(143, 85%, 96%);--success-border:hsl(145, 92%, 91%);--success-text:hsl(140, 100%, 27%);--info-bg:hsl(208, 100%, 97%);--info-border:hsl(221, 91%, 91%);--info-text:hsl(210, 92%, 45%);--warning-bg:hsl(49, 100%, 97%);--warning-border:hsl(49, 91%, 91%);--warning-text:hsl(31, 92%, 45%);--error-bg:hsl(359, 100%, 97%);--error-border:hsl(359, 100%, 94%);--error-text:hsl(360, 100%, 45%)}[data-sonner-toaster][data-theme=light] [data-sonner-toast][data-invert=true]{--normal-bg:#000;--normal-border:hsl(0, 0%, 20%);--normal-text:var(--gray1)}[data-sonner-toaster][data-theme=dark] [data-sonner-toast][data-invert=true]{--normal-bg:#fff;--normal-border:var(--gray3);--normal-text:var(--gray12)}[data-sonner-toaster][data-theme=dark]{--normal-bg:#000;--normal-border:hsl(0, 0%, 20%);--normal-text:var(--gray1);--success-bg:hsl(150, 100%, 6%);--success-border:hsl(147, 100%, 12%);--success-text:hsl(150, 86%, 65%);--info-bg:hsl(215, 100%, 6%);--info-border:hsl(223, 100%, 12%);--info-text:hsl(216, 87%, 65%);--warning-bg:hsl(64, 100%, 6%);--warning-border:hsl(60, 100%, 12%);--warning-text:hsl(46, 87%, 65%);--error-bg:hsl(358, 76%, 10%);--error-border:hsl(357, 89%, 16%);--error-text:hsl(358, 100%, 81%)}[data-rich-colors=true][data-sonner-toast][data-type=success]{background:var(--success-bg);border-color:var(--success-border);color:var(--success-text)}[data-rich-colors=true][data-sonner-toast][data-type=success] [data-close-button]{background:var(--success-bg);border-color:var(--success-border);color:var(--success-text)}[data-rich-colors=true][data-sonner-toast][data-type=info]{background:var(--info-bg);border-color:var(--info-border);color:var(--info-text)}[data-rich-colors=true][data-sonner-toast][data-type=info] [data-close-button]{background:var(--info-bg);border-color:var(--info-border);color:var(--info-text)}[data-rich-colors=true][data-sonner-toast][data-type=warning]{background:var(--warning-bg);border-color:var(--warning-border);color:var(--warning-text)}[data-rich-colors=true][data-sonner-toast][data-type=warning] [data-close-button]{background:var(--warning-bg);border-color:var(--warning-border);color:var(--warning-text)}[data-rich-colors=true][data-sonner-toast][data-type=error]{background:var(--error-bg);border-color:var(--error-border);color:var(--error-text)}[data-rich-colors=true][data-sonner-toast][data-type=error] [data-close-button]{background:var(--error-bg);border-color:var(--error-border);color:var(--error-text)}.sonner-loading-wrapper{--size:16px;height:var(--size);width:var(--size);position:absolute;inset:0;z-index:10}.sonner-loading-wrapper[data-visible=false]{transform-origin:center;animation:sonner-fade-out .2s ease forwards}.sonner-spinner{position:relative;top:50%;left:50%;height:var(--size);width:var(--size)}.sonner-loading-bar{animation:sonner-spin 1.2s linear infinite;background:var(--gray11);border-radius:6px;height:8%;left:-10%;position:absolute;top:-3.9%;width:24%}.sonner-loading-bar:first-child{animation-delay:-1.2s;transform:rotate(.0001deg) translate(146%)}.sonner-loading-bar:nth-child(2){animation-delay:-1.1s;transform:rotate(30deg) translate(146%)}.sonner-loading-bar:nth-child(3){animation-delay:-1s;transform:rotate(60deg) translate(146%)}.sonner-loading-bar:nth-child(4){animation-delay:-.9s;transform:rotate(90deg) translate(146%)}.sonner-loading-bar:nth-child(5){animation-delay:-.8s;transform:rotate(120deg) translate(146%)}.sonner-loading-bar:nth-child(6){animation-delay:-.7s;transform:rotate(150deg) translate(146%)}.sonner-loading-bar:nth-child(7){animation-delay:-.6s;transform:rotate(180deg) translate(146%)}.sonner-loading-bar:nth-child(8){animation-delay:-.5s;transform:rotate(210deg) translate(146%)}.sonner-loading-bar:nth-child(9){animation-delay:-.4s;transform:rotate(240deg) translate(146%)}.sonner-loading-bar:nth-child(10){animation-delay:-.3s;transform:rotate(270deg) translate(146%)}.sonner-loading-bar:nth-child(11){animation-delay:-.2s;transform:rotate(300deg) translate(146%)}.sonner-loading-bar:nth-child(12){animation-delay:-.1s;transform:rotate(330deg) translate(146%)}@keyframes sonner-fade-in{0%{opacity:0;transform:scale(.8)}100%{opacity:1;transform:scale(1)}}@keyframes sonner-fade-out{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.8)}}@keyframes sonner-spin{0%{opacity:1}100%{opacity:.15}}@media (prefers-reduced-motion){.sonner-loading-bar,[data-sonner-toast],[data-sonner-toast]>*{transition:none!important;animation:none!important}}.sonner-loader{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transform-origin:center;transition:opacity .2s,transform .2s}.sonner-loader[data-visible=false]{opacity:0;transform:scale(.8) translate(-50%,-50%)}`);
+let mt = 0;
+class Qt {
+  constructor() {
+    B(this, "subscribers");
+    B(this, "toasts");
+    // We use arrow functions to maintain the correct `this` reference
+    B(this, "subscribe", (a) => (this.subscribers.push(a), () => {
+      const t = this.subscribers.indexOf(a);
+      this.subscribers.splice(t, 1);
+    }));
+    B(this, "publish", (a) => {
+      this.subscribers.forEach((t) => t(a));
+    });
+    B(this, "addToast", (a) => {
+      this.publish(a), this.toasts = [...this.toasts, a];
+    });
+    B(this, "create", (a) => {
+      var x;
+      const { message: t, ...r } = a, n = typeof a.id == "number" || a.id && ((x = a.id) == null ? void 0 : x.length) > 0 ? a.id : mt++, g = this.toasts.find((m) => m.id === n), k = a.dismissible === void 0 ? !0 : a.dismissible;
+      return g ? this.toasts = this.toasts.map((m) => m.id === n ? (this.publish({ ...m, ...a, id: n, title: t }), {
+        ...m,
+        ...a,
+        id: n,
+        dismissible: k,
+        title: t
+      }) : m) : this.addToast({ title: t, ...r, dismissible: k, id: n }), n;
+    });
+    B(this, "dismiss", (a) => (a || this.toasts.forEach((t) => {
+      this.subscribers.forEach(
+        (r) => r({ id: t.id, dismiss: !0 })
+      );
+    }), this.subscribers.forEach((t) => t({ id: a, dismiss: !0 })), a));
+    B(this, "message", (a, t) => this.create({ ...t, message: a, type: "default" }));
+    B(this, "error", (a, t) => this.create({ ...t, type: "error", message: a }));
+    B(this, "success", (a, t) => this.create({ ...t, type: "success", message: a }));
+    B(this, "info", (a, t) => this.create({ ...t, type: "info", message: a }));
+    B(this, "warning", (a, t) => this.create({ ...t, type: "warning", message: a }));
+    B(this, "loading", (a, t) => this.create({ ...t, type: "loading", message: a }));
+    B(this, "promise", (a, t) => {
+      if (!t)
+        return;
+      let r;
+      t.loading !== void 0 && (r = this.create({
+        ...t,
+        promise: a,
+        type: "loading",
+        message: t.loading,
+        description: typeof t.description != "function" ? t.description : void 0
+      }));
+      const n = a instanceof Promise ? a : a();
+      let g = r !== void 0, k;
+      const x = n.then(async (d) => {
+        if (k = ["resolve", d], _t(d) && !d.ok) {
+          g = !1;
+          const b = typeof t.error == "function" ? await t.error(
+            `HTTP error! status: ${d.status}`
+          ) : t.error, f = typeof t.description == "function" ? (
+            // @ts-expect-error
+            await t.description(`HTTP error! status: ${d.status}`)
+          ) : t.description;
+          this.create({ id: r, type: "error", message: b, description: f });
+        } else if (t.success !== void 0) {
+          g = !1;
+          const b = typeof t.success == "function" ? await t.success(d) : t.success, f = typeof t.description == "function" ? await t.description(d) : t.description;
+          this.create({ id: r, type: "success", message: b, description: f });
+        }
+      }).catch(async (d) => {
+        if (k = ["reject", d], t.error !== void 0) {
+          g = !1;
+          const b = typeof t.error == "function" ? await t.error(d) : t.error, f = typeof t.description == "function" ? await t.description(
+            d
+          ) : t.description;
+          this.create({ id: r, type: "error", message: b, description: f });
+        }
+      }).finally(() => {
+        var d;
+        g && (this.dismiss(r), r = void 0), (d = t.finally) == null || d.call(t);
+      }), m = () => new Promise(
+        (d, b) => x.then(
+          () => k[0] === "reject" ? b(k[1]) : d(k[1])
+        ).catch(b)
+      );
+      return typeof r != "string" && typeof r != "number" ? { unwrap: m } : Object.assign(r, { unwrap: m });
+    });
+    // We can't provide the toast we just created as a prop as we didn't create it yet, so we can create a default toast object, I just don't know how to use function in argument when calling()?
+    B(this, "custom", (a, t) => {
+      const r = (t == null ? void 0 : t.id) || mt++;
+      return this.publish({ component: a, id: r, ...t }), r;
+    });
+    this.subscribers = [], this.toasts = [];
+  }
+}
+const $ = new Qt();
+function Zt(s, a) {
+  const t = (a == null ? void 0 : a.id) || mt++;
+  return $.create({
+    message: s,
+    id: t,
+    type: "default",
+    ...a
+  }), t;
+}
+const _t = (s) => s && typeof s == "object" && "ok" in s && typeof s.ok == "boolean" && "status" in s && typeof s.status == "number", te = Zt, ee = () => $.toasts, Ve = Object.assign(
+  te,
+  {
+    success: $.success,
+    info: $.info,
+    warning: $.warning,
+    error: $.error,
+    custom: $.custom,
+    message: $.message,
+    promise: $.promise,
+    dismiss: $.dismiss,
+    loading: $.loading
+  },
+  {
+    getHistory: ee
+  }
+);
+function dt(s) {
+  return s.label !== void 0;
+}
+function ae() {
+  const s = p(!1);
+  return N(() => {
+    const a = () => {
+      s.value = document.hidden;
+    };
+    return document.addEventListener("visibilitychange", a), () => window.removeEventListener("visibilitychange", a);
+  }), {
+    isDocumentHidden: s
+  };
+}
+function We() {
+  const s = p([]);
+  return N((a) => {
+    const t = $.subscribe((r) => {
+      if ("dismiss" in r && r.dismiss)
+        return s.value.filter((g) => g.id !== r.id);
+      const n = s.value.findIndex(
+        (g) => g.id === r.id
+      );
+      if (n !== -1) {
+        const g = [...s.value];
+        g[n] = {
+          ...g[n],
+          ...r
+        }, s.value = g;
+      } else
+        s.value = [r, ...s.value];
+    });
+    a(() => {
+      t();
+    });
+  }), {
+    activeToasts: s
+  };
+}
+const oe = ["aria-live", "data-rich-colors", "data-styled", "data-mounted", "data-promise", "data-removed", "data-visible", "data-y-position", "data-x-position", "data-index", "data-front", "data-swiping", "data-dismissible", "data-type", "data-invert", "data-swipe-out", "data-expanded"], se = ["aria-label", "data-disabled"], ne = {
+  key: 0,
+  "data-icon": ""
+}, re = 4e3, ie = 20, le = 200, de = /* @__PURE__ */ vt({
+  __name: "Toast",
+  props: {
+    toast: {},
+    toasts: {},
+    index: {},
+    expanded: { type: Boolean },
+    invert: { type: Boolean },
+    heights: {},
+    gap: {},
+    position: {},
+    visibleToasts: {},
+    expandByDefault: { type: Boolean },
+    closeButton: { type: Boolean },
+    interacting: { type: Boolean },
+    style: {},
+    cancelButtonStyle: {},
+    actionButtonStyle: {},
+    duration: {},
+    class: {},
+    unstyled: { type: Boolean },
+    descriptionClass: {},
+    loadingIcon: {},
+    classes: {},
+    icons: {},
+    closeButtonAriaLabel: {},
+    pauseWhenPageIsHidden: { type: Boolean },
+    cn: { type: Function },
+    defaultRichColors: { type: Boolean }
+  },
+  emits: ["update:heights", "removeToast"],
+  setup(s, { emit: a }) {
+    const t = s, r = a, n = p(!1), g = p(!1), k = p(!1), x = p(!1), m = p(0), d = p(0), b = p(null), f = p(null), R = y(() => t.index === 0), ft = y(() => t.index + 1 <= t.visibleToasts), I = y(() => t.toast.type), F = y(() => t.toast.dismissible !== !1), pt = y(() => t.toast.class || ""), ht = y(() => t.descriptionClass || ""), o = t.toast.style || {}, i = y(
+      () => t.heights.findIndex((e) => e.toastId === t.toast.id) || 0
+    ), u = y(() => t.toast.closeButton ?? t.closeButton), C = y(
+      () => t.toast.duration || t.duration || re
+    ), S = p(0), T = p(0), j = p(0), z = p(null), U = y(() => t.position.split("-")), tt = y(() => U.value[0]), et = y(() => U.value[1]), at = y(() => typeof t.toast.title != "string"), ot = y(
+      () => typeof t.toast.description != "string"
+    ), st = y(() => t.heights.reduce((e, c, w) => w >= i.value ? e : e + c.height, 0)), nt = ae(), rt = y(() => t.toast.invert || t.invert), H = y(() => I.value === "loading");
+    Yt(() => {
+      if (!n.value) return;
+      const e = f.value, c = e == null ? void 0 : e.style.height;
+      e.style.height = "auto";
+      const w = e.getBoundingClientRect().height;
+      e.style.height = c, d.value = w;
+      let E;
+      t.heights.find(
+        (v) => v.toastId === t.toast.id
+      ) ? E = t.heights.map(
+        (v) => v.toastId === t.toast.id ? { ...v, height: w } : v
+      ) : E = [
+        {
+          toastId: t.toast.id,
+          height: w,
+          position: t.toast.position
+        },
+        ...t.heights
+      ], r("update:heights", E);
+    });
+    function K() {
+      g.value = !0, m.value = T.value;
+      const e = t.heights.filter(
+        (c) => c.toastId !== t.toast.id
+      );
+      r("update:heights", e), setTimeout(() => {
+        r("removeToast", t.toast);
+      }, le);
+    }
+    function bt() {
+      var e, c;
+      H.value || !F.value || (K(), (c = (e = t.toast).onDismiss) == null || c.call(e, t.toast));
+    }
+    function jt(e) {
+      H.value || !F.value || (b.value = /* @__PURE__ */ new Date(), m.value = T.value, e.target.setPointerCapture(e.pointerId), e.target.tagName !== "BUTTON" && (k.value = !0, z.value = { x: e.clientX, y: e.clientY }));
+    }
+    function Vt() {
+      var E, D, v, A, O;
+      if (x.value) return;
+      z.value = null;
+      const e = Number(
+        ((E = f.value) == null ? void 0 : E.style.getPropertyValue("--swipe-amount").replace("px", "")) || 0
+      ), c = (/* @__PURE__ */ new Date()).getTime() - ((D = b.value) == null ? void 0 : D.getTime()), w = Math.abs(e) / c;
+      if (Math.abs(e) >= ie || w > 0.11) {
+        m.value = T.value, (A = (v = t.toast).onDismiss) == null || A.call(v, t.toast), K(), x.value = !0;
+        return;
+      }
+      (O = f.value) == null || O.style.setProperty("--swipe-amount", "0px"), k.value = !1;
+    }
+    function Wt(e) {
+      var O;
+      if (!z.value || !F.value) return;
+      const c = e.clientY - z.value.y, w = e.clientX - z.value.x, D = (U.value[0] === "top" ? Math.min : Math.max)(0, c), v = e.pointerType === "touch" ? 10 : 2;
+      Math.abs(D) > v ? (O = f.value) == null || O.style.setProperty("--swipe-amount", `${c}px`) : Math.abs(w) > v && (z.value = null);
+    }
+    return N(() => {
+      T.value = i.value * (t == null ? void 0 : t.gap) + st.value;
+    }), N((e) => {
+      if (t.toast.promise && I.value === "loading" || t.toast.duration === 1 / 0 || t.toast.type === "loading")
+        return;
+      let c, w = C.value;
+      const E = () => {
+        if (j.value < S.value) {
+          const v = (/* @__PURE__ */ new Date()).getTime() - S.value;
+          w = w - v;
+        }
+        j.value = (/* @__PURE__ */ new Date()).getTime();
+      }, D = () => {
+        w !== 1 / 0 && (S.value = (/* @__PURE__ */ new Date()).getTime(), c = setTimeout(() => {
+          var v, A;
+          (A = (v = t.toast).onAutoClose) == null || A.call(v, t.toast), K();
+        }, w));
+      };
+      t.expanded || t.interacting || t.pauseWhenPageIsHidden && nt ? E() : D(), e(() => {
+        clearTimeout(c);
+      });
+    }), Ft(
+      () => t.toast.delete,
+      (e) => {
+        e && K();
+      }
+    ), Yt(() => {
+      if (f.value) {
+        const e = f.value.getBoundingClientRect().height;
+        d.value = e;
+        const c = [
+          { toastId: t.toast.id, height: e, position: t.toast.position },
+          ...t.heights
+        ];
+        r("update:heights", c);
+      }
+      n.value = !0;
+    }), Gt(() => {
+      if (f.value) {
+        const e = t.heights.filter(
+          (c) => c.toastId !== t.toast.id
+        );
+        r("update:heights", e);
+      }
+    }), (e, c) => {
+      var w, E, D, v, A, O, yt, wt, kt, xt, Tt, Bt, St, Ct, $t, It, Et, Pt, Dt, zt, Ht, At, Mt, Ot;
+      return l(), h("li", {
+        ref_key: "toastRef",
+        ref: f,
+        "aria-live": e.toast.important ? "assertive" : "polite",
+        "aria-atomic": "true",
+        role: "status",
+        tabindex: "0",
+        "data-sonner-toast": "true",
+        class: Y(e.cn(
+          t.class,
+          pt.value,
+          (w = e.classes) == null ? void 0 : w.toast,
+          (E = e.toast.classes) == null ? void 0 : E.toast,
+          // @ts-ignore
+          (D = e.classes) == null ? void 0 : D[I.value],
+          // @ts-ignore
+          (A = (v = e.toast) == null ? void 0 : v.classes) == null ? void 0 : A[I.value]
+        )),
+        "data-rich-colors": e.toast.richColors ?? e.defaultRichColors,
+        "data-styled": !(e.toast.component || (O = e.toast) != null && O.unstyled || e.unstyled),
+        "data-mounted": n.value,
+        "data-promise": !!e.toast.promise,
+        "data-removed": g.value,
+        "data-visible": ft.value,
+        "data-y-position": tt.value,
+        "data-x-position": et.value,
+        "data-index": e.index,
+        "data-front": R.value,
+        "data-swiping": k.value,
+        "data-dismissible": F.value,
+        "data-type": I.value,
+        "data-invert": rt.value,
+        "data-swipe-out": x.value,
+        "data-expanded": !!(e.expanded || e.expandByDefault && n.value),
+        style: ct({
+          "--index": e.index,
+          "--toasts-before": e.index,
+          "--z-index": e.toasts.length - e.index,
+          "--offset": `${g.value ? m.value : T.value}px`,
+          "--initial-height": e.expandByDefault ? "auto" : `${d.value}px`,
+          ...e.style,
+          ...L(o)
+        }),
+        onPointerdown: jt,
+        onPointerup: Vt,
+        onPointermove: Wt
+      }, [
+        u.value && !e.toast.component ? (l(), h("button", {
+          key: 0,
+          "aria-label": e.closeButtonAriaLabel || "Close toast",
+          "data-disabled": H.value,
+          "data-close-button": "true",
+          class: Y(e.cn((yt = e.classes) == null ? void 0 : yt.closeButton, (kt = (wt = e.toast) == null ? void 0 : wt.classes) == null ? void 0 : kt.closeButton)),
+          onClick: bt
+        }, [
+          (xt = e.icons) != null && xt.close ? (l(), q(Z((Tt = e.icons) == null ? void 0 : Tt.close), { key: 0 })) : P(e.$slots, "close-icon", { key: 1 })
+        ], 10, se)) : V("", !0),
+        e.toast.component ? (l(), q(Z(e.toast.component), ut({ key: 1 }, e.toast.componentProps, { onCloseToast: bt }), null, 16)) : (l(), h(W, { key: 2 }, [
+          I.value !== "default" || e.toast.icon || e.toast.promise ? (l(), h("div", ne, [
+            (e.toast.promise || I.value === "loading") && !e.toast.icon ? P(e.$slots, "loading-icon", { key: 0 }) : V("", !0),
+            e.toast.icon ? (l(), q(Z(e.toast.icon), { key: 1 })) : (l(), h(W, { key: 2 }, [
+              I.value === "success" ? P(e.$slots, "success-icon", { key: 0 }) : I.value === "error" ? P(e.$slots, "error-icon", { key: 1 }) : I.value === "warning" ? P(e.$slots, "warning-icon", { key: 2 }) : I.value === "info" ? P(e.$slots, "info-icon", { key: 3 }) : V("", !0)
+            ], 64))
+          ])) : V("", !0),
+          M("div", {
+            "data-content": "",
+            class: Y(e.cn((Bt = e.classes) == null ? void 0 : Bt.content, (Ct = (St = e.toast) == null ? void 0 : St.classes) == null ? void 0 : Ct.content))
+          }, [
+            M("div", {
+              "data-title": "",
+              class: Y(e.cn(($t = e.classes) == null ? void 0 : $t.title, (It = e.toast.classes) == null ? void 0 : It.title))
+            }, [
+              at.value ? (l(), q(Z(e.toast.title), Lt(ut({ key: 0 }, e.toast.componentProps)), null, 16)) : (l(), h(W, { key: 1 }, [
+                Nt(lt(e.toast.title), 1)
+              ], 64))
+            ], 2),
+            e.toast.description ? (l(), h("div", {
+              key: 0,
+              "data-description": "",
+              class: Y(
+                e.cn(
+                  e.descriptionClass,
+                  ht.value,
+                  (Et = e.classes) == null ? void 0 : Et.description,
+                  (Pt = e.toast.classes) == null ? void 0 : Pt.description
+                )
+              )
+            }, [
+              ot.value ? (l(), q(Z(e.toast.description), Lt(ut({ key: 0 }, e.toast.componentProps)), null, 16)) : (l(), h(W, { key: 1 }, [
+                Nt(lt(e.toast.description), 1)
+              ], 64))
+            ], 2)) : V("", !0)
+          ], 2),
+          e.toast.cancel ? (l(), h("button", {
+            key: 1,
+            style: ct(e.toast.cancelButtonStyle || e.cancelButtonStyle),
+            class: Y(e.cn((Dt = e.classes) == null ? void 0 : Dt.cancelButton, (zt = e.toast.classes) == null ? void 0 : zt.cancelButton)),
+            "data-button": "",
+            "data-cancel": "",
+            onClick: c[0] || (c[0] = (it) => {
+              var J, Q;
+              L(dt)(e.toast.cancel) && F.value && ((Q = (J = e.toast.cancel).onClick) == null || Q.call(J, it), K());
+            })
+          }, lt(L(dt)(e.toast.cancel) ? (Ht = e.toast.cancel) == null ? void 0 : Ht.label : e.toast.cancel), 7)) : V("", !0),
+          e.toast.action ? (l(), h("button", {
+            key: 2,
+            style: ct(e.toast.actionButtonStyle || e.actionButtonStyle),
+            class: Y(e.cn((At = e.classes) == null ? void 0 : At.actionButton, (Mt = e.toast.classes) == null ? void 0 : Mt.actionButton)),
+            "data-button": "",
+            "data-action": "",
+            onClick: c[1] || (c[1] = (it) => {
+              var J, Q;
+              L(dt)(e.toast.action) && (it.defaultPrevented || ((Q = (J = e.toast.action).onClick) == null || Q.call(J, it), K()));
+            })
+          }, lt(L(dt)(e.toast.action) ? (Ot = e.toast.action) == null ? void 0 : Ot.label : e.toast.action), 7)) : V("", !0)
+        ], 64))
+      ], 46, oe);
+    };
+  }
+}), _ = (s, a) => {
+  const t = s.__vccOpts || s;
+  for (const [r, n] of a)
+    t[r] = n;
+  return t;
+}, ce = {}, ue = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: "12",
+  height: "12",
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  "stoke-width": "1.5",
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round"
+};
+function fe(s, a) {
+  return l(), h("svg", ue, a[0] || (a[0] = [
+    M("line", {
+      x1: "18",
+      y1: "6",
+      x2: "6",
+      y2: "18"
+    }, null, -1),
+    M("line", {
+      x1: "6",
+      y1: "6",
+      x2: "18",
+      y2: "18"
+    }, null, -1)
+  ]));
+}
+const pe = /* @__PURE__ */ _(ce, [["render", fe]]), he = ["data-visible"], ge = { class: "sonner-spinner" }, me = /* @__PURE__ */ vt({
+  __name: "Loader",
+  props: {
+    visible: { type: Boolean }
+  },
+  setup(s) {
+    const a = Array(12).fill(0);
+    return (t, r) => (l(), h("div", {
+      class: "sonner-loading-wrapper",
+      "data-visible": t.visible
+    }, [
+      M("div", ge, [
+        (l(!0), h(W, null, gt(L(a), (n) => (l(), h("div", {
+          key: `spinner-bar-${n}`,
+          class: "sonner-loading-bar"
+        }))), 128))
+      ])
+    ], 8, he));
+  }
+}), ve = {}, be = {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 20 20",
+  fill: "currentColor",
+  height: "20",
+  width: "20"
+};
+function ye(s, a) {
+  return l(), h("svg", be, a[0] || (a[0] = [
+    M("path", {
+      "fill-rule": "evenodd",
+      d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z",
+      "clip-rule": "evenodd"
+    }, null, -1)
+  ]));
+}
+const we = /* @__PURE__ */ _(ve, [["render", ye]]), ke = {}, xe = {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 20 20",
+  fill: "currentColor",
+  height: "20",
+  width: "20"
+};
+function Te(s, a) {
+  return l(), h("svg", xe, a[0] || (a[0] = [
+    M("path", {
+      "fill-rule": "evenodd",
+      d: "M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z",
+      "clip-rule": "evenodd"
+    }, null, -1)
+  ]));
+}
+const Be = /* @__PURE__ */ _(ke, [["render", Te]]), Se = {}, Ce = {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24",
+  fill: "currentColor",
+  height: "20",
+  width: "20"
+};
+function $e(s, a) {
+  return l(), h("svg", Ce, a[0] || (a[0] = [
+    M("path", {
+      "fill-rule": "evenodd",
+      d: "M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z",
+      "clip-rule": "evenodd"
+    }, null, -1)
+  ]));
+}
+const Ie = /* @__PURE__ */ _(Se, [["render", $e]]), Ee = {}, Pe = {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 20 20",
+  fill: "currentColor",
+  height: "20",
+  width: "20"
+};
+function De(s, a) {
+  return l(), h("svg", Pe, a[0] || (a[0] = [
+    M("path", {
+      "fill-rule": "evenodd",
+      d: "M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z",
+      "clip-rule": "evenodd"
+    }, null, -1)
+  ]));
+}
+const ze = /* @__PURE__ */ _(Ee, [["render", De]]), He = ["aria-label"], Ae = ["dir", "data-theme", "data-rich-colors", "data-y-position", "data-x-position"], Me = 3, Rt = "32px", Oe = 356, Ye = 14, Le = typeof window < "u" && typeof document < "u";
+function Ne(...s) {
+  return s.filter(Boolean).join(" ");
+}
+const Re = /* @__PURE__ */ vt({
+  name: "Toaster",
+  inheritAttrs: !1,
+  __name: "Toaster",
+  props: {
+    invert: { type: Boolean, default: !1 },
+    theme: { default: "light" },
+    position: { default: "bottom-right" },
+    hotkey: { default: () => ["altKey", "KeyT"] },
+    richColors: { type: Boolean, default: !1 },
+    expand: { type: Boolean, default: !1 },
+    duration: {},
+    gap: { default: Ye },
+    visibleToasts: { default: Me },
+    closeButton: { type: Boolean, default: !1 },
+    toastOptions: { default: () => ({}) },
+    class: { default: "" },
+    style: { default: () => ({}) },
+    offset: { default: Rt },
+    dir: { default: "auto" },
+    icons: {},
+    containerAriaLabel: { default: "Notifications" },
+    pauseWhenPageIsHidden: { type: Boolean, default: !1 },
+    cn: { type: Function, default: Ne }
+  },
+  setup(s) {
+    const a = s;
+    function t() {
+      if (typeof window > "u" || typeof document > "u") return "ltr";
+      const o = document.documentElement.getAttribute("dir");
+      return o === "auto" || !o ? window.getComputedStyle(document.documentElement).direction : o;
+    }
+    const r = qt(), n = p([]), g = y(() => {
+      const o = n.value.filter((i) => i.position).map((i) => i.position);
+      return o.length > 0 ? Array.from(new Set([a.position].concat(o))) : [a.position];
+    }), k = p([]), x = p(!1), m = p(!1), d = p(
+      a.theme !== "system" ? a.theme : typeof window < "u" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+    ), b = p(null), f = p(null), R = p(!1), ft = a.hotkey.join("+").replace(/Key/g, "").replace(/Digit/g, "");
+    function I(o) {
+      var i;
+      (i = n.value.find((u) => u.id === o.id)) != null && i.delete || $.dismiss(o.id), n.value = n.value.filter(({ id: u }) => u !== o.id);
+    }
+    function F(o) {
+      var i, u;
+      R.value && !((u = (i = o.currentTarget) == null ? void 0 : i.contains) != null && u.call(i, o.relatedTarget)) && (R.value = !1, f.value && (f.value.focus({ preventScroll: !0 }), f.value = null));
+    }
+    function pt(o) {
+      o.target instanceof HTMLElement && o.target.dataset.dismissible === "false" || R.value || (R.value = !0, f.value = o.relatedTarget);
+    }
+    function ht(o) {
+      o.target && o.target instanceof HTMLElement && o.target.dataset.dismissible === "false" || (m.value = !1);
+    }
+    return N((o) => {
+      const i = $.subscribe((u) => {
+        if (u.dismiss) {
+          n.value = n.value.map(
+            (C) => C.id === u.id ? { ...C, delete: !0 } : C
+          );
+          return;
+        }
+        Jt(() => {
+          const C = n.value.findIndex(
+            (S) => S.id === u.id
+          );
+          C !== -1 ? n.value = [
+            ...n.value.slice(0, C),
+            { ...n.value[C], ...u },
+            ...n.value.slice(C + 1)
+          ] : n.value = [u, ...n.value];
+        });
+      });
+      o(() => {
+        i();
+      });
+    }), Ft(
+      () => a.theme,
+      (o) => {
+        if (o !== "system") {
+          d.value = o;
+          return;
+        }
+        o === "system" && (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? d.value = "dark" : d.value = "light"), !(typeof window > "u") && window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches: i }) => {
+          i ? d.value = "dark" : d.value = "light";
+        });
+      }
+    ), N(() => {
+      b.value && f.value && (f.value.focus({ preventScroll: !0 }), f.value = null, R.value = !1);
+    }), N(() => {
+      n.value.length <= 1 && (x.value = !1);
+    }), N((o) => {
+      function i(u) {
+        const C = a.hotkey.every(
+          (j) => u[j] || u.code === j
+        ), S = Array.isArray(b.value) ? b.value[0] : b.value;
+        C && (x.value = !0, S == null || S.focus());
+        const T = document.activeElement === b.value || (S == null ? void 0 : S.contains(document.activeElement));
+        u.code === "Escape" && T && (x.value = !1);
+      }
+      Le && (document.addEventListener("keydown", i), o(() => {
+        document.removeEventListener("keydown", i);
+      }));
+    }), (o, i) => (l(), h("section", {
+      "aria-label": `${o.containerAriaLabel} ${L(ft)}`,
+      tabIndex: -1
+    }, [
+      (l(!0), h(W, null, gt(g.value, (u, C) => {
+        var S;
+        return l(), h("ol", ut({
+          key: u,
+          ref_for: !0,
+          ref_key: "listRef",
+          ref: b,
+          "data-sonner-toaster": "",
+          class: a.class,
+          dir: o.dir === "auto" ? t() : o.dir,
+          tabIndex: -1,
+          "data-theme": o.theme,
+          "data-rich-colors": o.richColors,
+          "data-y-position": u.split("-")[0],
+          "data-x-position": u.split("-")[1],
+          style: {
+            "--front-toast-height": `${(S = k.value[0]) == null ? void 0 : S.height}px`,
+            "--offset": typeof o.offset == "number" ? `${o.offset}px` : o.offset || Rt,
+            "--width": `${Oe}px`,
+            "--gap": `${o.gap}px`,
+            ...o.style,
+            ...L(r).style
+          }
+        }, o.$attrs, {
+          onBlur: F,
+          onFocus: pt,
+          onMouseenter: i[1] || (i[1] = () => x.value = !0),
+          onMousemove: i[2] || (i[2] = () => x.value = !0),
+          onMouseleave: i[3] || (i[3] = () => {
+            m.value || (x.value = !1);
+          }),
+          onPointerdown: ht,
+          onPointerup: i[4] || (i[4] = () => m.value = !1)
+        }), [
+          (l(!0), h(W, null, gt(n.value.filter(
+            (T) => !T.position && C === 0 || T.position === u
+          ), (T, j) => {
+            var z, U, tt, et, at, ot, st, nt, rt;
+            return l(), q(de, {
+              key: T.id,
+              heights: k.value.filter((H) => H.position === T.position),
+              icons: o.icons,
+              index: j,
+              toast: T,
+              defaultRichColors: o.richColors,
+              duration: ((z = o.toastOptions) == null ? void 0 : z.duration) ?? o.duration,
+              class: Y(((U = o.toastOptions) == null ? void 0 : U.class) ?? ""),
+              descriptionClass: (tt = o.toastOptions) == null ? void 0 : tt.descriptionClass,
+              invert: o.invert,
+              visibleToasts: o.visibleToasts,
+              closeButton: ((et = o.toastOptions) == null ? void 0 : et.closeButton) ?? o.closeButton,
+              interacting: m.value,
+              position: u,
+              style: ct((at = o.toastOptions) == null ? void 0 : at.style),
+              unstyled: (ot = o.toastOptions) == null ? void 0 : ot.unstyled,
+              classes: (st = o.toastOptions) == null ? void 0 : st.classes,
+              cancelButtonStyle: (nt = o.toastOptions) == null ? void 0 : nt.cancelButtonStyle,
+              actionButtonStyle: (rt = o.toastOptions) == null ? void 0 : rt.actionButtonStyle,
+              toasts: n.value.filter((H) => H.position === T.position),
+              expandByDefault: o.expand,
+              gap: o.gap,
+              expanded: x.value,
+              pauseWhenPageIsHidden: o.pauseWhenPageIsHidden,
+              cn: o.cn,
+              "onUpdate:heights": i[0] || (i[0] = (H) => {
+                k.value = H;
+              }),
+              onRemoveToast: I
+            }, {
+              "close-icon": X(() => [
+                P(o.$slots, "close-icon", {}, () => [
+                  G(pe)
+                ])
+              ]),
+              "loading-icon": X(() => [
+                P(o.$slots, "loading-icon", {}, () => [
+                  G(me, {
+                    visible: T.type === "loading"
+                  }, null, 8, ["visible"])
+                ])
+              ]),
+              "success-icon": X(() => [
+                P(o.$slots, "success-icon", {}, () => [
+                  G(we)
+                ])
+              ]),
+              "error-icon": X(() => [
+                P(o.$slots, "error-icon", {}, () => [
+                  G(ze)
+                ])
+              ]),
+              "warning-icon": X(() => [
+                P(o.$slots, "warning-icon", {}, () => [
+                  G(Ie)
+                ])
+              ]),
+              "info-icon": X(() => [
+                P(o.$slots, "info-icon", {}, () => [
+                  G(Be)
+                ])
+              ]),
+              _: 2
+            }, 1032, ["heights", "icons", "index", "toast", "defaultRichColors", "duration", "class", "descriptionClass", "invert", "visibleToasts", "closeButton", "interacting", "position", "style", "unstyled", "classes", "cancelButtonStyle", "actionButtonStyle", "toasts", "expandByDefault", "gap", "expanded", "pauseWhenPageIsHidden", "cn"]);
+          }), 128))
+        ], 16, Ae);
+      }), 128))
+    ], 8, He));
+  }
+}), Ue = {
+  install(s) {
+    s.component("Toaster", Re);
+  }
+};
+export {
+  Re as Toaster,
+  Ue as default,
+  Ve as toast,
+  We as useVueSonner
+};
+//# sourceMappingURL=vue-sonner.js.map

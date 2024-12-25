@@ -28,20 +28,20 @@ services:
       - cache:/app/tmp/cache
       - bundle:/usr/local/bundle
     depends_on:
-      - postgres
+      # - postgres
       - redis
       - vite
       - mailhog
       - sidekiq
     ports:
-      - 3000:3000
+      - 3033:3033
     env_file: .env
     environment:
       - VITE_DEV_SERVER_HOST=vite
       - NODE_ENV=development
       - RAILS_ENV=development
     entrypoint: docker/entrypoints/rails.sh
-    command: ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
+    command: ["bundle", "exec", "rails", "s", "-p", "3033", "-b", "0.0.0.0"]
 
   sidekiq:
     <<: *base
@@ -53,7 +53,7 @@ services:
       - cache:/app/tmp/cache
       - bundle:/usr/local/bundle
     depends_on:
-      - postgres
+      # - postgres
       - redis
       - mailhog
     environment:
@@ -82,17 +82,17 @@ services:
     entrypoint: docker/entrypoints/vite.sh
     command: bin/vite dev
 
-  postgres:
-    image: postgres:12
-    restart: always
-    ports:
-      - '5432:5432'
-    volumes:
-      - postgres:/data/postgres
-    environment:
-      - POSTGRES_DB=chatwoot
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=
+  # postgres:
+  #   image: postgres:12
+  #   restart: always
+  #   ports:
+  #     - '5432:5432'
+  #   volumes:
+  #     - postgres:/data/postgres
+  #   environment:
+  #     - POSTGRES_DB=chatwoot
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=
 
   redis:
     image: redis:alpine
@@ -111,7 +111,7 @@ services:
       - 8025:8025
 
 volumes:
-  postgres:
+  # postgres:
   redis:
   packs:
   node_modules:
