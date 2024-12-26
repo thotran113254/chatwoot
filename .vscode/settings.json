@@ -2,5 +2,15 @@
     "cSpell.words": [
         "chatwoot",
         "dompurify"
-    ]
+    ],
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/.github": true,
+        "**/pnpm": true
+      },
+      "files.exclude": {
+        "**/node_modules": true,
+        "**/.github": true,
+        "**/pnpm": true
+      }
 }

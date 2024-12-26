@@ -22,25 +22,26 @@ export default {
       if (Object.keys(this.enabledFeatures).length === 0) {
         return false;
       }
-      if (key === 'website') {
-        return this.enabledFeatures.channel_website;
-      }
+      // if (key === 'website') {
+      //   return this.enabledFeatures.channel_website;
+      // }
       if (key === 'facebook') {
         return this.enabledFeatures.channel_facebook && this.hasFbConfigured;
       }
-      if (key === 'email') {
-        return this.enabledFeatures.channel_email;
-      }
+      // if (key === 'email') {
+      //   return this.enabledFeatures.channel_email;
+      // }
 
-      return [
-        'website',
-        'twilio',
-        'api',
-        'whatsapp',
-        'sms',
-        'telegram',
-        'line',
-      ].includes(key);
+      // return [
+      //   'website',
+      //   'twilio',
+      //   'api',
+      //   'whatsapp',
+      //   'sms',
+      //   'telegram',
+      //   'line',
+      // ].includes(key);
+      return false;
     },
   },
   methods: {
@@ -64,6 +65,7 @@ export default {
     :class="{ inactive: !isActive }"
     :title="channel.name"
     :src="getChannelThumbnail()"
+    :comingSoon="!isActive && channel.key !== 'facebook'"
     @click="onItemClick"
   />
 </template>

@@ -31,7 +31,7 @@ export default {
     CONDENSED: 'condensed',
     EXPANDED: 'expanded',
   },
-  DOCS_URL: 'https://www.chatwoot.com/docs/product/',
+  DOCS_URL: 'https://docs.mooly.vn/docs/product/',
   HELP_CENTER_DOCS_URL:
     'https://www.chatwoot.com/docs/product/others/help-center',
   TESTIMONIAL_URL: 'https://testimonials.cdn.chatwoot.com/content.json',

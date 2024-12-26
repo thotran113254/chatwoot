@@ -257,7 +257,7 @@ export default {
         <NotificationPreferences />
       </FormSection>
     </Policy>
-    <FormSection
+    <!-- <FormSection
       :title="$t('PROFILE_SETTINGS.FORM.ACCESS_TOKEN.TITLE')"
       :description="
         useInstallationName(
@@ -267,6 +267,6 @@ export default {
       "
     >
       <AccessToken :value="currentUser.access_token" @on-copy="onCopyToken" />
-    </FormSection>
+    </FormSection> -->
   </div>
 </template>

@@ -83,6 +83,9 @@ export default {
     this.$store.dispatch('conversationAttributes/getAttributes');
     this.registerUnreadEvents();
     this.registerCampaignEvents();
+    this.changeLogoSrc();
+    this.changeFavicon();
+    this.replaceChatwootText();
   },
   methods: {
     ...mapActions('appConfig', [
@@ -326,6 +329,29 @@ export default {
     setCampaignReadData(snoozedTill) {
       if (snoozedTill) {
         this.campaignsSnoozedTill = Number(snoozedTill);
+      }
+    },
+    changeLogoSrc() {
+      const images = document.querySelectorAll('img[src="/brand-assets/logo.svg"]');
+      images.forEach(img => {
+        img.src = '/brand-assets/logo.png';
+      });
+
+      const imagesDark = document.querySelectorAll('img[src="/brand-assets/logo_dark.svg"]');
+      imagesDark.forEach(img => {
+        img.src = '/brand-assets/logo_dark.png';
+      });
+    },
+    changeFavicon() {
+      const link = document.querySelector('link[href="/brand-assets/logo_thumbnail.svg"]');
+      if (link) {
+        link.href = '/brand-assets/logo_thumbnail.png';
+      }
+    },
+    replaceChatwootText() {
+      const element = this.$el;
+      if (element) {
+        element.innerHTML = element.innerHTML.replace(/Chatwoot/g, 'Mooly.vn');
       }
     },
   },
