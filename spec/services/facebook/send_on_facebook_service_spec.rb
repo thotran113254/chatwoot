@@ -118,4 +118,40 @@ describe Facebook::SendOnFacebookService do
       end
     end
   end
+
+  describe '#send_typing_status' do
+    let(:service) { described_class.new(inbox: facebook_inbox, contact_inbox: contact_inbox) }
+
+    context 'when sending typing status' do
+      it 'sends typing_on status successfully' do
+        allow(bot).to receive(:deliver).and_return(true)
+        
+        service.send_typing_status('typing_on')
+        
+        expect(bot).to have_received(:deliver).with(
+          {
+            recipient: { id: contact_inbox.source_id },
+            sender_action: 'typing_on',
+            messaging_type: 'RESPONSE'
+          },
+          { page_id: facebook_channel.page_id }
+        )
+      end
+
+      it 'handles facebook errors' do
+        allow(bot).to receive(:deliver)
+          .and_raise(Facebook::Messenger::FacebookError.new('message' => 'Error validating access token'))
+
+        expect {
+          service.send_typing_status('typing_on')
+        }.to change { facebook_channel.authorization_error_count }.by(1)
+      end
+
+      it 'does nothing for non-facebook channels' do
+        service = described_class.new(inbox: widget_inbox, contact_inbox: contact_inbox)
+        expect(bot).not_to receive(:deliver)
+        service.send_typing_status('typing_on')
+      end
+    end
+  end
 end

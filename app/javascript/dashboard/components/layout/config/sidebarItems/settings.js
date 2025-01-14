@@ -109,29 +109,29 @@ const settings = accountId => ({
       toStateName: 'attributes_list',
       featureFlag: FEATURE_FLAGS.CUSTOM_ATTRIBUTES,
     },
-    // {
-    //   icon: 'automation',
-    //   label: 'AUTOMATION',
-    //   hasSubMenu: false,
-    //   meta: {
-    //     permissions: ['administrator'],
-    //   },
-    //   toState: frontendURL(`accounts/${accountId}/settings/automation/list`),
-    //   toStateName: 'automation_list',
-    //   featureFlag: FEATURE_FLAGS.AUTOMATIONS,
-    // },
-    // {
-    //   icon: 'bot',
-    //   label: 'AGENT_BOTS',
-    //   hasSubMenu: false,
-    //   meta: {
-    //     permissions: ['administrator'],
-    //   },
-    //   globalConfigFlag: 'csmlEditorHost',
-    //   toState: frontendURL(`accounts/${accountId}/settings/agent-bots`),
-    //   toStateName: 'agent_bots',
-    //   featureFlag: FEATURE_FLAGS.AGENT_BOTS,
-    // },
+    {
+      icon: 'automation',
+      label: 'AUTOMATION',
+      hasSubMenu: false,
+      meta: {
+        permissions: ['administrator'],
+      },
+      toState: frontendURL(`accounts/${accountId}/settings/automation/list`),
+      toStateName: 'automation_list',
+      featureFlag: FEATURE_FLAGS.AUTOMATIONS,
+    },
+    {
+      icon: 'bot',
+      label: 'AGENT_BOTS',
+      hasSubMenu: false,
+      meta: {
+        permissions: ['administrator'],
+      },
+      globalConfigFlag: 'csmlEditorHost',
+      toState: frontendURL(`accounts/${accountId}/settings/agent-bots`),
+      toStateName: 'agent_bots',
+      featureFlag: FEATURE_FLAGS.AGENT_BOTS,
+    },
     {
       icon: 'flash-settings',
       label: 'MACROS',

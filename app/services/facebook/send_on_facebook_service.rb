@@ -80,22 +80,11 @@ class Facebook::SendOnFacebookService < Base::SendOnChannelService
 
   def handle_facebook_error(exception)
     error_message = exception.message
-    
-    if error_message.include?('The session has been invalidated') || 
-       error_message.include?('Error validating access token') ||
-       error_message.include?('Invalid OAuth access token')
-      channel.authorization_error!
-      raise exception
+    if error_message.include?('Error validating access token') || error_message.include?('Invalid OAuth access token')
+      @inbox.channel.authorization_error!
+      @message.update!(status: :failed, external_error: error_message) if @message.present?
     end
-
-    # Log lỗi chi tiết
-    Rails.logger.error "Facebook::SendOnFacebookService Error: #{error_message}"
-    
-    # Cập nhật trạng thái message
-    message.update!(
-      status: :failed,
-      external_error: "Facebook Error: #{error_message}"
-    )
+    raise exception
   end
 
   def fb_select_message_params
@@ -167,5 +156,22 @@ class Facebook::SendOnFacebookService < Base::SendOnChannelService
       messaging_type: 'MESSAGE_TAG',
       tag: 'ACCOUNT_UPDATE'
     }
+  end
+
+  def send_typing_status(status)
+    return if @inbox.channel_type != 'Channel::FacebookPage'
+    
+    begin
+      Facebook::Messenger::Bot.deliver(
+        {
+          recipient: { id: @contact_inbox.source_id },
+          sender_action: status == 'on' ? 'typing_on' : 'typing_off',
+          messaging_type: 'RESPONSE'
+        },
+        { page_id: @inbox.channel.page_id }
+      )
+    rescue Facebook::Messenger::FacebookError => e
+      handle_facebook_error(e)
+    end
   end
 end

@@ -90,6 +90,73 @@ class Instagram::MessageText < Instagram::WebhooksBaseService
   def create_message
     return unless @contact_inbox
 
+    if contains_url?(@messaging[:message][:text])
+      handle_url_message
+    elsif @messaging[:message][:template_type].present?
+      handle_template_message
+    else
+      Messages::Instagram::MessageBuilder.new(@messaging, @inbox, outgoing_echo: agent_message_via_echo?).perform
+    end
+  end
+
+  def contains_url?(text)
+    return false if text.blank?
+    URI.extract(text).any?
+  end
+
+  def handle_url_message
+    # Chuyển đổi tin nhắn URL thành template button
+    @messaging[:message] = {
+      template_type: 'button',
+      text: @messaging[:message][:text].truncate(600),
+      buttons: [
+        {
+          type: 'web_url',
+          url: URI.extract(@messaging[:message][:text]).first,
+          title: 'Mở liên kết'[0..19]
+        }
+      ]
+    }
+    handle_template_message
+  end
+
+  def handle_template_message
+    case @messaging[:message][:template_type]
+    when 'button'
+      handle_button_template
+    when 'generic'
+      handle_generic_template
+    end
+  end
+
+  def handle_button_template
+    return unless @messaging[:message][:buttons].present?
+
+    # Xử lý cả trường hợp button URL và button payload
+    button_response = if @messaging[:message][:text].present?
+      @messaging[:message][:buttons].find { |btn| btn[:payload] == @messaging[:message][:text] }
+    else
+      @messaging[:message][:buttons].first
+    end
+
+    return unless button_response
+
+    @messaging[:message][:text] = if button_response[:type] == 'web_url'
+      "#{button_response[:title]}: #{button_response[:url]}"
+    else
+      button_response[:title]
+    end
+
+    Messages::Instagram::MessageBuilder.new(@messaging, @inbox, outgoing_echo: agent_message_via_echo?).perform
+  end
+
+  def handle_generic_template
+    return unless @messaging[:message][:elements].present?
+
+    element = @messaging[:message][:elements].first
+    return unless element
+
+    @messaging[:message][:text] = element[:title]
     Messages::Instagram::MessageBuilder.new(@messaging, @inbox, outgoing_echo: agent_message_via_echo?).perform
   end
 
